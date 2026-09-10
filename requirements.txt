@@ -1,7 +1,7 @@
 torch>=2.1.0
 torchaudio>=2.1.0
 TTS>=0.22.0
-numpy
+numpy<1.26
 soundfile
 librosa
 pydub
@@ -14,3 +14,7 @@ anyascii
 phonemizer
 spacy
 scipy
+# Pin transformers for XTTS compatibility (important!)
+transformers>=4.33.0,<4.41.0
+setuptools<81
+
