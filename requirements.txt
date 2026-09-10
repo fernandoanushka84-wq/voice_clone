@@ -1,0 +1,16 @@
+torch>=2.1.0
+torchaudio>=2.1.0
+TTS>=0.22.0
+numpy
+soundfile
+librosa
+pydub
+gradio>=4.0.0
+tqdm
+PyYAML
+inflect
+unidecode
+anyascii
+phonemizer
+spacy
+scipy

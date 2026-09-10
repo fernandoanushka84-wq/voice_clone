@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+venv/
+env/
+.env
+.tts/
+.cache/
+*.pth
+*.pt
+output/*.wav
+output/*.mp3
+!output/.gitkeep
+.DS_Store
+.vscode/
+.idea/
