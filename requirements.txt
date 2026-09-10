@@ -18,3 +18,14 @@ scipy
 transformers>=4.33.0,<4.41.0
 setuptools<81
 
+# Extra packages needed for the video pipeline
+# Install on top of the existing voice-clone requirements
+
+diffusers>=0.27.0
+transformers>=4.38.0
+accelerate
+safetensors
+moviepy>=1.0.3
+Pillow
+imageio
+imageio-ffmpeg
