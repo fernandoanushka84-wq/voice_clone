@@ -1,25 +1,33 @@
 #!/usr/bin/env python3
 """
-Microlearning Video Maker (Practical Version)
+Microlearning Video Maker (Pinokio + Fooocus)
 =============================================
 1. Splits the speech into logical sections
-2. Generates cartoon-style educational images for each section (SD 1.5 / Turbo)
+2. Uses Pinokio Fooocus to generate scene images for each section
 3. Assembles a 1280x720 video synced with the cloned audio
 
-Designed for RTX 2060 8GB (uses low-VRAM friendly settings).
+This version is designed to work with a local Fooocus web UI running from Pinokio.
+The image generation is done in Fooocus, not directly in Python diffusers.
 
-Usage (inside container with venv activated):
+Usage:
   python scripts/make_microlearning_video.py \
       --audio output/microlearning_cloned_v2.wav \
-      --output output/microlearning_video.mp4
+      --output output/microlearning_video.mp4 \
+      --fooocus_url http://127.0.0.1:7865
 """
 
 import argparse
+import base64
+import json
 import os
 import sys
-import json
 from pathlib import Path
-from typing import List, Dict
+from typing import Dict, List
+
+try:
+    import requests
+except ImportError:  # pragma: no cover
+    requests = None
 
 # ------------------------- Sections (Practical) -------------------------
 # Manually curated logical sections for better visual coherence
@@ -127,40 +135,29 @@ def build_scene_prompt(section: Dict) -> str:
 
 
 
-def generate_images(sections: List[Dict], output_dir: Path, model_id: str = "stabilityai/stable-diffusion-xl-base-1.0"):
-    """Generate more accurate educational scene images using a stronger open-source SDXL model."""
-    print("\n[1/3] Loading image generation model (this may take a minute)...")
-    try:
-        import torch
-        from diffusers import AutoPipelineForText2Image
-    except ImportError:
-        print("[ERROR] Please install: pip install diffusers transformers accelerate")
+def generate_images(
+    sections: List[Dict],
+    output_dir: Path,
+    model_id: str = "fooocus",
+    fooocus_url: str = "http://127.0.0.1:7865",
+):
+    """Generate educational scene images via Pinokio Fooocus web UI.
+
+    This workflow assumes Fooocus is running locally or behind a tunnel, and
+    exposes the Standard Diffusers-style /sdapi/v1/txt2img endpoint.
+    """
+    if requests is None:
+        print("[ERROR] Please install: pip install requests")
         sys.exit(1)
-
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    dtype = torch.float16 if device == "cuda" else torch.float32
-
-    pipe = AutoPipelineForText2Image.from_pretrained(
-        model_id,
-        torch_dtype=dtype,
-        variant="fp16" if device == "cuda" else None,
-        use_safetensors=True,
-    )
-    pipe = pipe.to(device)
-
-    if device == "cuda":
-        try:
-            pipe.enable_attention_slicing()
-            pipe.enable_vae_slicing()
-        except Exception:
-            pass
 
     images_dir = output_dir / "section_images"
     images_dir.mkdir(parents=True, exist_ok=True)
 
-    print(f"[2/3] Generating {len(sections)} more accurate story-frame images...")
-    image_paths = []
+    print("\n[1/3] Pinokio Fooocus image generation selected...")
+    print(f"     Fooocus URL: {fooocus_url}")
+    print(f"     Generator: {model_id}")
 
+    image_paths: List[str] = []
     for sec in sections:
         out_path = images_dir / f"section_{sec['id']:02d}.png"
         if out_path.exists():
@@ -170,27 +167,44 @@ def generate_images(sections: List[Dict], output_dir: Path, model_id: str = "sta
 
         prompt = build_scene_prompt(sec)
         negative = (
-            "blurry, low quality, oversaturated, text overlay, watermark, logo, duplicate objects, "
-            "bad anatomy, distorted hands, deformed face, noisy background, cluttered scene, low detail, "
-            "cartoon style too generic, photorealistic mismatch, inconsistent perspective"
+            "blurry, low quality, oversaturated, text overlay, watermark, logo, "
+            "duplicate objects, bad anatomy, distorted hands, deformed face, "
+            "noisy background, cluttered scene, low detail, cartoon style too generic, "
+            "photorealistic mismatch, inconsistent perspective"
         )
 
-        steps = 4 if "turbo" in model_id.lower() else 28
-        guidance = 0.0 if "turbo" in model_id.lower() else 7.5
+        payload = {
+            "prompt": prompt,
+            "negative_prompt": negative,
+            "steps": 25,
+            "cfg_scale": 7.5,
+            "width": 1280,
+            "height": 720,
+            "batch_size": 1,
+            "sampler_name": "DPM++ 2M Karras",
+            "n_iter": 1,
+            "seed": -1,
+        }
 
         print(f"  → Generating section {sec['id']}: {sec['title']}...")
-        image = pipe(
-            prompt=prompt,
-            negative_prompt=negative,
-            num_inference_steps=steps,
-            guidance_scale=guidance,
-            width=1280,
-            height=720,
-        ).images[0]
+        try:
+            url = fooocus_url.rstrip("/") + "/sdapi/v1/txt2img"
+            response = requests.post(url, json=payload, timeout=300)
+            response.raise_for_status()
+            result = response.json()
+            if "images" not in result or not result["images"]:
+                raise ValueError("Fooocus response did not include generated images")
 
-        image.save(out_path)
-        image_paths.append(str(out_path))
-        print(f"    saved → {out_path.name}")
+            image_b64 = result["images"][0]
+            image_bytes = base64.b64decode(image_b64)
+            out_path.write_bytes(image_bytes)
+            image_paths.append(str(out_path))
+            print(f"    saved → {out_path.name}")
+        except Exception as exc:
+            print(f"[ERROR] Failed to generate section {sec['id']} using Fooocus: {exc}")
+            print("\nPlease make sure Pinokio Fooocus is running and reachable at the value passed to --fooocus_url.")
+            print("Example: --fooocus_url http://127.0.0.1:7865")
+            sys.exit(1)
 
     return image_paths
 
@@ -243,8 +257,10 @@ def main():
                         help="Path to the cloned voice wav file")
     parser.add_argument("--output", default="output/microlearning_video.mp4",
                         help="Final video output path")
-    parser.add_argument("--model", default="stabilityai/stable-diffusion-xl-base-1.0",
-                        help="Diffusers model id (SDXL is much more accurate than SD-Turbo for story-based educational frames)")
+    parser.add_argument("--model", default="fooocus",
+                        help="Image generator label. For Pinokio Fooocus, this should normally be 'fooocus'.")
+    parser.add_argument("--fooocus_url", default="http://127.0.0.1:7865",
+                        help="Pinokio Fooocus web UI base URL, for example http://127.0.0.1:7865")
     parser.add_argument("--skip_images", action="store_true",
                         help="Skip image generation (use existing section_images/)")
     args = parser.parse_args()
@@ -272,7 +288,7 @@ def main():
             print(f"[ERROR] Expected {len(SECTIONS)} images, found {len(image_paths)}")
             sys.exit(1)
     else:
-        image_paths = generate_images(SECTIONS, output_dir, model_id=args.model)
+        image_paths = generate_images(SECTIONS, output_dir, model_id=args.model, fooocus_url=args.fooocus_url)
 
     assemble_video(audio_path, image_paths, Path(args.output), SECTIONS)
 
