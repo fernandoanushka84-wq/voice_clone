@@ -1,0 +1,344 @@
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/uvicorn/protocols/http/h11_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/uvicorn/middleware/proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 1281, in handle
+    await super().handle(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/routing.py", line 280, in handle
+    await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 144, in app
+    response = await f(request)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/anyio/to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/gradio/routes.py", line 282, in main
+    return templates.TemplateResponse(
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/templating.py", line 148, in TemplateResponse
+    template = self.get_template(name)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/templating.py", line 115, in get_template
+    return self.env.get_template(name)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/environment.py", line 964, in _load_template
+    template = self.cache.get(cache_key)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/utils.py", line 477, in get
+    return self[key]
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/utils.py", line 515, in __getitem__
+    rv = self._mapping[key]
+TypeError: unhashable type: 'dict'
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/uvicorn/protocols/http/h11_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/uvicorn/middleware/proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 1281, in handle
+    await super().handle(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/routing.py", line 280, in handle
+    await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 144, in app
+    response = await f(request)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/anyio/to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/gradio/routes.py", line 282, in main
+    return templates.TemplateResponse(
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/templating.py", line 148, in TemplateResponse
+    template = self.get_template(name)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/templating.py", line 115, in get_template
+    return self.env.get_template(name)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/environment.py", line 964, in _load_template
+    template = self.cache.get(cache_key)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/utils.py", line 477, in get
+    return self[key]
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/utils.py", line 515, in __getitem__
+    rv = self._mapping[key]
+TypeError: unhashable type: 'dict'
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/uvicorn/protocols/http/h11_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/uvicorn/middleware/proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 1281, in handle
+    await super().handle(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/routing.py", line 280, in handle
+    await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 144, in app
+    response = await f(request)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/anyio/to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/gradio/routes.py", line 282, in main
+    return templates.TemplateResponse(
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/templating.py", line 148, in TemplateResponse
+    template = self.get_template(name)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/templating.py", line 115, in get_template
+    return self.env.get_template(name)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/environment.py", line 964, in _load_template
+    template = self.cache.get(cache_key)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/utils.py", line 477, in get
+    return self[key]
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/utils.py", line 515, in __getitem__
+    rv = self._mapping[key]
+TypeError: unhashable type: 'dict'
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/uvicorn/protocols/http/h11_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/uvicorn/middleware/proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 1281, in handle
+    await super().handle(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/routing.py", line 280, in handle
+    await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 144, in app
+    response = await f(request)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/anyio/to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/gradio/routes.py", line 282, in main
+    return templates.TemplateResponse(
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/templating.py", line 148, in TemplateResponse
+    template = self.get_template(name)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/templating.py", line 115, in get_template
+    return self.env.get_template(name)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/environment.py", line 964, in _load_template
+    template = self.cache.get(cache_key)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/utils.py", line 477, in get
+    return self[key]
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/utils.py", line 515, in __getitem__
+    rv = self._mapping[key]
+TypeError: unhashable type: 'dict'
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/uvicorn/protocols/http/h11_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/uvicorn/middleware/proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 1281, in handle
+    await super().handle(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/routing.py", line 280, in handle
+    await self.app(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 144, in app
+    response = await f(request)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/fastapi/routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/anyio/to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/gradio/routes.py", line 282, in main
+    return templates.TemplateResponse(
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/templating.py", line 148, in TemplateResponse
+    template = self.get_template(name)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/starlette/templating.py", line 115, in get_template
+    return self.env.get_template(name)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/environment.py", line 964, in _load_template
+    template = self.cache.get(cache_key)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/utils.py", line 477, in get
+    return self[key]
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/jinja2/utils.py", line 515, in __getitem__
+    rv = self._mapping[key]
+TypeError: unhashable type: 'dict'
+Running on local URL:  http://0.0.0.0:7860
+IMPORTANT: You are using gradio version 3.41.2, however version 4.44.1 is available, please upgrade.
+--------
+Traceback (most recent call last):
+  File "/data/voice_clone/scripts/web_ui.py", line 141, in <module>
+    demo.launch(server_name="0.0.0.0", server_port=7860, share=False)
+  File "/data/Fooocus/venv/lib/python3.10/site-packages/gradio/blocks.py", line 1971, in launch
+    raise ValueError(
+ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True or check your proxy settings to allow access to localhost.
